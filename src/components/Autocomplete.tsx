@@ -23,11 +23,16 @@ const Autocomplete = () => {
   }, [setSickNms]);
   //console.log('sickNms', sickNms);
 
-  const handleInputChange = event => {
+  type T = {
+    sickCd: string;
+    sickNm: string;
+  };
+
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = event.target;
     setInputValue(value);
 
-    let matches = []; //const로 선언하면 안됨
+    let matches: T[] = []; //const로 선언하면 안됨
     if (value.length > 0) {
       matches = sickNms.filter(item => {
         const regex = new RegExp(`${value}`, 'i');
@@ -37,6 +42,7 @@ const Autocomplete = () => {
     matches.length > 0 ? setClickedState(false) : setClickedState(true);
 
     setSuggestions(matches);
+    console.log('matches', matches);
   };
   //console.log('suggestions', suggestions);
 
@@ -46,12 +52,12 @@ const Autocomplete = () => {
     }
   };
 
-  const handleSuggestion = select => {
+  const handleSuggestion = (select: string) => {
     setInputValue(select);
     setSuggestions([]);
   };
 
-  const handleKeyUp = event => {
+  const handleKeyUp = (event: React.KeyboardEvent<HTMLDivElement>) => {
     if (inputValue.length > 0) {
       if (event.code === 'ArrowDown' && sickNms.length - 1 > selected) {
         setSelected(selected + 1);
