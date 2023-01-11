@@ -40,15 +40,12 @@ const Autocomplete = () => {
         return item.sickNm.match(regex);
       });
     }
-    const result = matches.map(item => {
-      const regex = new RegExp(`${value}`, 'gim');
-      return item.sickNm.replace(regex, `<b>${value}<b>`);
-    });
-    setSuggestions(result);
-
     matches.length > 0 ? setClickedState(false) : setClickedState(true);
+
+    setSuggestions(matches);
+    console.log('suggestions', suggestions);
   };
-  console.log('suggestions', suggestions);
+  //console.log('suggestions', suggestions);
 
   const handleInputClick = () => {
     if (inputValue === '') {
@@ -72,7 +69,7 @@ const Autocomplete = () => {
       if (event.code === 'Enter' && selected >= 0) {
         // console.log('selected', selected);
         // console.log('suggestions', suggestions[selected].sickNm);
-        handleSuggestion(suggestions[selected]);
+        handleSuggestion(suggestions[selected].sickNm);
         setSelected(-1);
       }
     }
@@ -109,7 +106,7 @@ const Autocomplete = () => {
             <div
               key={idx}
               onClick={() => {
-                handleSuggestion(suggestion);
+                handleSuggestion(suggestion.sickNm);
               }}
               className={
                 selected === idx
@@ -117,10 +114,7 @@ const Autocomplete = () => {
                   : 'flex mx-5 hover:bg-pink-200 cursor-pointer p-1'
               }
             >
-              {/* FIXME : split에서 공백도 짤림 */}
-              <span>{suggestion.split('<b>')[0]}</span>
-              <span className="font-bold">{suggestion.split('<b>')[1]}</span>
-              <span>{suggestion.split('<b>')[2]}</span>
+              {suggestion.sickNm}
             </div>
           ))
         )}
