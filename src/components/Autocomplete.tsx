@@ -2,6 +2,9 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import SearchIcon from './SearchIcon';
 
+// FIXME : 인풋창 밖에 클릭했을 때 추천검색어 없어지기
+// FIXME : 검색결과 볼드처리
+
 const Autocomplete = () => {
   const [inputValue, setInputValue] = useState('');
   const [sickNms, setSickNms] = useState([]);
@@ -35,7 +38,7 @@ const Autocomplete = () => {
 
     setSuggestions(matches);
   };
-  console.log('suggestions', suggestions);
+  //console.log('suggestions', suggestions);
 
   const handleInputClick = () => {
     if (inputValue === '') {
